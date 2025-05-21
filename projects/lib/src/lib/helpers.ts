@@ -18,7 +18,7 @@ export type OutputFormat = 'auto' | 'hex' | 'rgba' | 'hsla';
 
 export function calculateAutoPositioning(elBounds: BoundingRectangle, triggerElBounds: BoundingRectangle): string {
   // Defaults
-  let usePositionX = 'right';
+  let usePositionX = 'left';
   let usePositionY = 'bottom';
   // Calculate collisions
   const { height, width } = elBounds;
@@ -41,18 +41,14 @@ export function calculateAutoPositioning(elBounds: BoundingRectangle, triggerElB
     usePositionY = 'bottom';
   }
 
-  if (collisionLeft) {
-    usePositionX = 'right';
-  }
-
-  if (collisionRight) {
+  if (collisionLeft || collisionRight) {
     usePositionX = 'left';
   }
 
 
   // Choose the largest gap available
   if (collisionAll) {
-    const postions = ['left', 'right', 'top', 'bottom'];
+    const postions = ['left', 'top', 'bottom'];
     return postions.reduce((prev, next) => elBounds[prev] > elBounds[next] ? prev : next);
   }
 
@@ -63,9 +59,8 @@ export function calculateAutoPositioning(elBounds: BoundingRectangle, triggerElB
   }
 
   if ((collisionTop && collisionBottom)) {
-    if (collisionLeft) { return 'right'; }
-    if (collisionRight) { return 'left'; }
-    return left > right ? 'left' : 'right';
+    if (collisionLeft || collisionRight) { return 'left'; }
+    return 'left';
   }
 
   return `${usePositionY}-${usePositionX}`;

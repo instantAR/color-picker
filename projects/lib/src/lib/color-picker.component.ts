@@ -144,6 +144,8 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public cpExtraTemplate: TemplateRef<any>;
 
+  public presetColorIndex: number = -1;
+
   @ViewChild('dialogPopup', { static: true }) dialogElement: ElementRef;
 
   @ViewChild('hueSlider', { static: true }) hueSlider: ElementRef;
@@ -352,7 +354,8 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.cpPresetTooltips = cpPresetTooltips;
   }
 
-  public setColorFromString(value: string, emit: boolean = true, update: boolean = true,index: number = -1): void {
+  public setColorFromString(value: string, emit: boolean = true, update: boolean = true, index: number = -1): void {
+    this.presetColorIndex = index;
     let hsva: Hsva | null;
     // this.activeIndex = index;
     let selectedColourValue = value;
@@ -475,7 +478,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         if (this.cpCloseClickOutside) {
-          this.closeColorPicker();
+          this.closeColorPicker(this.presetColorIndex);
         }
       });
     }
@@ -898,7 +901,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
         this.cdRef.detectChanges();
       }, 0);
 
-      this.directiveInstance.stateChanged(true);
+      this.directiveInstance.stateChanged({state: true, index: -1});
 
       if (!this.isIE10) {
         // The change detection should be run on `mousedown` event only when the condition
@@ -919,11 +922,11 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  private closeColorPicker(): void {
+  private closeColorPicker(index = -1): void {
     if (this.show) {
       this.show = false;
 
-      this.directiveInstance.stateChanged(false);
+      this.directiveInstance.stateChanged({state: false, index: index});
 
       if (!this.isIE10) {
         if (SUPPORTS_TOUCH) {
@@ -1077,7 +1080,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
          (!parentNode || parentNode instanceof HTMLUnknownElement)))
       {
         this.top = boxDirective.top;
-        this.left = boxDirective.left;
+        this.left = boxDirective.left- 40;
       } else {
         if (parentNode === null) {
           parentNode = node;
@@ -1086,7 +1089,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
         const boxParent = this.createDialogBox(parentNode, (position !== 'fixed'));
 
         this.top = boxDirective.top - boxParent.top;
-        this.left = boxDirective.left - boxParent.left;
+        this.left = boxDirective.left - boxParent.left - 40;
       }
 
       if (position === 'fixed') {
@@ -1096,7 +1099,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
       let usePosition = this.cpPosition;
 
       if (this.cpPosition === 'auto') {
-        const dialogBounds = this.dialogElement.nativeElement.getBoundingClientRect();
+        var dialogBounds = this.dialogElement.nativeElement.getBoundingClientRect();
         const triggerBounds = this.cpTriggerElement.nativeElement.getBoundingClientRect();
         usePosition = calculateAutoPositioning(dialogBounds, triggerBounds);
       }
@@ -1117,6 +1120,9 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
         this.left += boxDirective.width + this.dialogArrowSize - 2 - this.dialogArrowOffset;
       } else if (usePosition === 'left' || usePosition === 'bottom-left' || usePosition === 'left-bottom') {
         this.top += boxDirective.height * this.cpPositionOffset / 100 - this.dialogArrowOffset;
+        this.left -= this.cpWidth + this.dialogArrowSize - 2;
+      } else if (usePosition === 'center-left') {
+        this.top += (boxDirective.height) * this.cpPositionOffset / 100 - this.dialogArrowOffset - (dialogBounds?.height/2);
         this.left -= this.cpWidth + this.dialogArrowSize - 2;
       } else { // usePosition === 'right' || usePosition === 'bottom-right' || usePosition === 'right-bottom'
         this.top += boxDirective.height * this.cpPositionOffset / 100 - this.dialogArrowOffset;

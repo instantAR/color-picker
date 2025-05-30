@@ -88,7 +88,7 @@ export class ColorPickerDirective implements OnChanges, OnDestroy {
 
   @Output() cpInputChange = new EventEmitter<{input: string, value: number | string, color: string}>(true);
 
-  @Output() cpToggleChange = new EventEmitter<boolean>(true);
+  @Output() cpToggleChange = new EventEmitter<{state: boolean, index: number}>(true);
 
   @Output() cpSliderChange = new EventEmitter<{slider: string, value: string | number, color: string}>(true);
   @Output() cpSliderDragEnd = new EventEmitter<{slider: string, color: string}>(true);
@@ -240,10 +240,10 @@ export class ColorPickerDirective implements OnChanges, OnDestroy {
     this.cpCmykColorChange.emit(value);
   }
 
-  public stateChanged(state: boolean): void {
-    this.cpToggleChange.emit(state);
+  public stateChanged(value: {state: boolean, index: number}): void {
+    this.cpToggleChange.emit(value);
 
-    if (state) {
+    if (value.state) {
       this.colorPickerOpen.emit(this.colorPicker);
     } else {
       this.colorPickerClose.emit(this.colorPicker);

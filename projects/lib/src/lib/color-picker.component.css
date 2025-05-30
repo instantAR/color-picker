@@ -2,7 +2,7 @@
   position: absolute;
   z-index: 1000;
 
-  width: 230px;
+  width: 270px !important;
   height: auto;
   border: #777 solid 1px;
 
@@ -173,9 +173,9 @@
   position: relative;
 
   display: inline-block;
-  width: 25px;
-  height: 25px;
-  margin: 4px 6px 9px;
+  width: 24px;
+  height: 24px;
+  margin: 4px 5px 6px;
   border: #a9a9a9 solid 1px;
   border-radius: 15%;
   cursor: pointer;
@@ -509,4 +509,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   fill: white;mix-blend-mode: exclusion;
+}
+
+.arrow-center-left {
+    top: 51.5%;
+    left: 100%;
+    border-width: 5px 10px;
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #777;
 }

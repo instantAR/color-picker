@@ -27,7 +27,7 @@ export function calculateAutoPositioning(elBounds: BoundingRectangle, triggerElB
   const right = left + triggerElBounds.width;
 
   const collisionTop = top - height < 0;
-  const collisionBottom = bottom + height > (window.innerHeight || document.documentElement.clientHeight);
+  const collisionBottom = (window.innerHeight-top) - height < 0;
   const collisionLeft = left - width < 0;
   const collisionRight = right + width > (window.innerWidth || document.documentElement.clientWidth);
   const collisionAll = collisionTop && collisionBottom && collisionLeft && collisionRight;
@@ -59,8 +59,8 @@ export function calculateAutoPositioning(elBounds: BoundingRectangle, triggerElB
   }
 
   if ((collisionTop && collisionBottom)) {
-    if (collisionLeft || collisionRight) { return 'left'; }
-    return 'left';
+    if (collisionLeft || collisionRight) { return 'center-left'; }
+    return 'center-left';
   }
 
   return `${usePositionY}-${usePositionX}`;

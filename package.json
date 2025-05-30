@@ -1,10 +1,9 @@
 {
   "name": "ngx-color-picker-new",
   "description": "Color picker widget for Angular",
-  "bugs": "https://github.com/zefoy/color-picker/issues",
-  "version": "2.0.0",
+  "bugs": "https://github.com/bhavinmatariya/color-picker/issues",
+  "version": "4.1.1",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "ng": "ng",
     "lint": "ng lint",

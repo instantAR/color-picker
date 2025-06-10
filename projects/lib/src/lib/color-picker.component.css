@@ -423,10 +423,15 @@
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAh0lEQVRYR+2W0QlAMQgD60zdfwOdqa8TmI/wQMr5K0I5bZLIzLOa2nt37VVVbd+dDx5obgCC3KBLwJ2ff4PnVidkf+ucIhw80HQaCLo3DMH3CRK3iFsmAWVl6hPNDwt8EvNE5q+YuEXcMgkonVM6SdyCoEvAnZ8v1Hjx817MilmxSUB5rdLJDycZgUAZUch/AAAAAElFTkSuQmCC');
 }
 
+.color-picker .saturation-lightness-container {
+  display: flex;
+  justify-content: center;
+}
+
 .color-picker .saturation-lightness {
   direction: ltr;
 
-  width: 100%;
+  width: 230px;
   height: 130px;
   border: none;
 

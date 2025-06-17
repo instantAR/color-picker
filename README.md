@@ -135,6 +135,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
 (cpCmykColorChange)          // Outputs the color as CMYK string if CMYK is enabled (value: string).
 
 (cpPresetColorsChange)       // Preset colors, send when 'Add Color' button is pressed (value: array).
+
+(cpAddColorVariable)           // trigger event when click on add preset variable button (value: boolean)
 ```
 
 ##### Available control / helper functions (provided by the directive):

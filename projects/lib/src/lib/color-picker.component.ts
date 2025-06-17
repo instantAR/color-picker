@@ -885,6 +885,10 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.directiveInstance.presetColorsChanged(this.cpPresetColors);
   }
+  
+  public onAddPresetVariableColor(): void {
+    this.directiveInstance.addColorVariable(true);
+  }
 
   // Private helper functions for the color picker dialog status
 

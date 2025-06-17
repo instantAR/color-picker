@@ -191,10 +191,20 @@
   border: 1px solid #0190fe !important;
 }
 
+.add-preset-color {
+  width: 24px;
+  height: 24px;
+  margin: 4px 5px 6px;
+  border: #a9a9a9 solid 1px;
+  border-radius: 15%;
+  background-color: transparent;
+  font-size: 18px;
+  padding-top: 0px;
+}
+
 .cp_tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black;
 }
 
 .cp_tooltip .tooltiptext {

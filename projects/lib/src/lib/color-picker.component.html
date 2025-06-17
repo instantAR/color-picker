@@ -116,6 +116,10 @@
         <span *ngIf="cpPresetTooltips?.length" class="tooltiptext">{{cpPresetTooltips[i]}}</span>
         <span *ngIf="cpAddColorButton" class="{{cpRemoveColorButtonClass}}" (click)="onRemovePresetColor($event, color)"></span>
       </div>
+       <button  class="add-preset-color cp_tooltip" (click)="onAddPresetVariableColor()">
+        <span class="tooltiptext">Add Variable</span> 
+          +
+      </button>
     </div>
 
     <div *ngIf="!cpPresetColors?.length && cpAddColorButton" class="{{cpPresetEmptyMessageClass}}">{{cpPresetEmptyMessage}}</div>

@@ -112,14 +112,16 @@
     <div class="preset-label">{{cpPresetLabel}}</div>
 
     <div *ngIf="cpPresetColors?.length" class="{{cpPresetColorsClass}}">
-      <div *ngFor="let color of cpPresetColors;let i=index" class="preset-color cp_tooltip" [style.backgroundColor]="color" [ngClass]="{'preset-color-selected' : i === activeIndex}" (click)="setColorFromString(color,true,true,i)">
-        <span *ngIf="cpPresetTooltips?.length" class="tooltiptext">{{cpPresetTooltips[i]}}</span>
-        <span *ngIf="cpAddColorButton" class="{{cpRemoveColorButtonClass}}" (click)="onRemovePresetColor($event, color)"></span>
-      </div>
-       <button  class="add-preset-color cp_tooltip" (click)="onAddPresetVariableColor()">
-        <span class="tooltiptext">Add Variable</span> 
-          +
-      </button>
+      <ng-container *ngFor="let color of cpPresetColors;let i=index; let last=last">
+        <div class="preset-color cp_tooltip" [style.backgroundColor]="color" [ngClass]="{'preset-color-selected' : i === activeIndex}" (click)="setColorFromString(color,true,true,i)">
+          <span *ngIf="cpPresetTooltips?.length" class="tooltiptext">{{cpPresetTooltips[i]}}</span>
+          <span *ngIf="cpAddColorButton" class="{{cpRemoveColorButtonClass}}" (click)="onRemovePresetColor($event, color)"></span>
+        </div>
+        <div *ngIf="last" class="preset-color cp_tooltip" (click)="onAddPresetVariableColor()">
+          <span class="tooltiptext">Add Variable</span> 
+          <div class="add-variable-btn">+</div>
+        </div>
+      </ng-container>
     </div>
 
     <div *ngIf="!cpPresetColors?.length && cpAddColorButton" class="{{cpPresetEmptyMessageClass}}">{{cpPresetEmptyMessage}}</div>

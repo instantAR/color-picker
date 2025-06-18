@@ -146,6 +146,9 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public presetColorIndex: number = -1;
 
+  public searchText: string = '';
+  filteredColorIndexes: number[];
+
   @ViewChild('dialogPopup', { static: true }) dialogElement: ElementRef;
 
   @ViewChild('hueSlider', { static: true }) hueSlider: ElementRef;
@@ -927,6 +930,9 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private closeColorPicker(index = -1): void {
+    this.searchText = '';
+    this.filteredColorIndexes = [];
+    
     if (this.show) {
       this.show = false;
 
@@ -1162,4 +1168,22 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
       height: element.offsetHeight
     };
   }
+
+  get filteredPresetColors() {
+    if (!Array.isArray(this.cpPresetColors)) return [];
+
+    if (this.cpPresetColors.length <= 10 || !this.searchText?.trim()) {
+      this.filteredColorIndexes = this.cpPresetColors.map((_, i) => i);
+    }
+
+    const search = this.searchText.toLowerCase();
+
+    this.filteredColorIndexes = this.cpPresetTooltips
+      .map((tooltip, index) => ({ tooltip: tooltip.toLowerCase(), index }))
+      .filter(item => item.tooltip.includes(search))
+      .map(item => item.index);
+
+    return this.filteredColorIndexes.map(i => this.cpPresetColors[i]);
+  }
+
 }

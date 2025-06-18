@@ -111,10 +111,18 @@
 
     <div class="preset-label">{{cpPresetLabel}}</div>
 
+    <input
+      *ngIf="cpPresetColors?.length > 10"
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search color..."
+      class="form-control"
+      style="margin-bottom: 8px; width: 100%;"
+    />
     <div *ngIf="cpPresetColors?.length" class="{{cpPresetColorsClass}}">
-      <ng-container *ngFor="let color of cpPresetColors;let i=index; let last=last">
+      <ng-container *ngFor="let color of filteredPresetColors;let i=index; let last=last">
         <div class="preset-color cp_tooltip" [style.backgroundColor]="color" [ngClass]="{'preset-color-selected' : i === activeIndex}" (click)="setColorFromString(color,true,true,i)">
-          <span *ngIf="cpPresetTooltips?.length" class="tooltiptext">{{cpPresetTooltips[i]}}</span>
+          <span *ngIf="cpPresetTooltips?.length" class="tooltiptext">{{cpPresetTooltips[filteredColorIndexes[i]]}}</span>
           <span *ngIf="cpAddColorButton" class="{{cpRemoveColorButtonClass}}" (click)="onRemovePresetColor($event, color)"></span>
         </div>
         <div *ngIf="last" class="preset-color cp_tooltip" (click)="onAddPresetVariableColor()">

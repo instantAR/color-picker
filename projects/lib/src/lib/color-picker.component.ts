@@ -148,6 +148,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public searchText: string = '';
   filteredColorIndexes: number[];
+   filteredPresetColors: any[] = []
 
   @ViewChild('dialogPopup', { static: true }) dialogElement: ElementRef;
 
@@ -355,12 +356,12 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.cpPresetLabel = cpPresetLabel;
     this.cpPresetColors = cpPresetColors;
     this.cpPresetTooltips = cpPresetTooltips;
+    this.updateFilteredPresetColors();
   }
 
   public setColorFromString(value: string, emit: boolean = true, update: boolean = true, index: number = -1): void {
     this.presetColorIndex = index;
     let hsva: Hsva | null;
-    // this.activeIndex = index;
     let selectedColourValue = value;
 
     if (selectedColourValue?.includes('rgb')) {
@@ -371,7 +372,9 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
         selectedColourValue = hexValue;
       }
     }
-    this.getPresetColourIndex(selectedColourValue);
+    // this.getPresetColourIndex(selectedColourValue, index);
+    index == -1 || (this.activeIndex = index);
+
     if (this.cpAlphaChannel === 'always' || this.cpAlphaChannel === 'forced') {
       hsva = this.service.stringToHsva(value, true);
 
@@ -540,6 +543,8 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public onColorChange(value: { s: number, v: number, rgX: number, rgY: number }): void {
+    this.activeIndex = -1
+
     this.hsva.s = value.s / value.rgX;
     this.hsva.v = value.v / value.rgY;
     this.activeIndex = -1;
@@ -931,7 +936,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private closeColorPicker(index = -1): void {
     this.searchText = '';
-    this.filteredColorIndexes = [];
+    this.updateFilteredPresetColors();
     
     if (this.show) {
       this.show = false;
@@ -1169,21 +1174,24 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
     };
   }
 
-  get filteredPresetColors() {
-    if (!Array.isArray(this.cpPresetColors)) return [];
+  updateFilteredPresetColors(): void {
+  if (!Array.isArray(this.cpPresetColors)) {
+    this.filteredColorIndexes = [];
+    return;
+  }
 
-    if (this.cpPresetColors.length <= 10 || !this.searchText?.trim()) {
-      this.filteredColorIndexes = this.cpPresetColors.map((_, i) => i);
-    }
-
+  if (this.cpPresetColors.length <= 10 || !this.searchText?.trim()) {
+    this.filteredColorIndexes = this.cpPresetColors.map((_, i) => i);
+  } else {
     const search = this.searchText.toLowerCase();
 
     this.filteredColorIndexes = this.cpPresetTooltips
       .map((tooltip, index) => ({ tooltip: tooltip.toLowerCase(), index }))
       .filter(item => item.tooltip.includes(search))
       .map(item => item.index);
-
-    return this.filteredColorIndexes.map(i => this.cpPresetColors[i]);
   }
+
+  this.filteredPresetColors = this.filteredColorIndexes.map(i => ({ color: this.cpPresetColors[i], index: i }));
+}
 
 }

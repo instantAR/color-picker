@@ -128,6 +128,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
   public cpPresetLabel: string;
   public cpPresetColors: string[];
   public cpPresetTooltips: string[];
+  public cpActiveColorIndex: number = -1;
   public activeIndex: number = -1;
   public cpPresetColorsClass: string;
   public cpMaxPresetColorsLength: number;
@@ -251,7 +252,7 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
     cpOKButtonText: string, cpCancelButton: boolean, cpCancelButtonClass: string,
     cpCancelButtonText: string, cpAddColorButton: boolean, cpAddColorButtonClass: string,
     cpAddColorButtonText: string, cpRemoveColorButtonClass: string, cpEyeDropper: boolean,
-    cpTriggerElement: ElementRef, cpExtraTemplate: TemplateRef<any>, cpPresetTooltips: string[]): void
+    cpTriggerElement: ElementRef, cpExtraTemplate: TemplateRef<any>, cpPresetTooltips: string[], cpActiveColorIndex: number): void
   {
     this.setInitialColor(color);
 
@@ -294,6 +295,9 @@ export class ColorPickerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.cpEyeDropper = cpEyeDropper;
 
     this.fallbackColor = cpFallbackColor || '#fff';
+
+    this.cpActiveColorIndex = cpActiveColorIndex;
+    this.activeIndex = cpActiveColorIndex;
 
     this.setPresetConfig(cpPresetLabel, cpPresetColors, cpPresetTooltips);
 

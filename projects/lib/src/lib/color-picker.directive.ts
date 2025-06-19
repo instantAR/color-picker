@@ -70,6 +70,7 @@ export class ColorPickerDirective implements OnChanges, OnDestroy {
   @Input() cpEyeDropper: boolean = false;
 
   @Input() cpPresetLabel: string = 'Preset colors';
+  @Input() cpActiveColorIndex: number = -1;
   @Input() cpPresetColors: string[];
   @Input() cpPresetTooltips: string[];
   @Input() cpPresetColorsClass: string = 'cp-preset-colors-class';
@@ -219,7 +220,7 @@ export class ColorPickerDirective implements OnChanges, OnDestroy {
         this.cpOKButtonText, this.cpCancelButton, this.cpCancelButtonClass,
         this.cpCancelButtonText, this.cpAddColorButton, this.cpAddColorButtonClass,
         this.cpAddColorButtonText, this.cpRemoveColorButtonClass, this.cpEyeDropper, this.elRef,
-        this.cpExtraTemplate,this.cpPresetTooltips);
+        this.cpExtraTemplate,this.cpPresetTooltips,this.cpActiveColorIndex);
 
       this.dialog = this.cmpRef.instance;
 

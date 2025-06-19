@@ -137,6 +137,21 @@ export class ColorPickerDirective implements OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: any): void {
+    if (changes.cpActiveColorIndex) {
+      !this.cmpRef?.instance || this.cmpRef?.instance?.setupDialog(this, this.elRef, this.colorPicker,
+        this.cpWidth, this.cpHeight, this.cpDialogDisplay, this.cpFallbackColor, this.cpColorMode,
+        this.cpCmykEnabled, this.cpAlphaChannel, this.cpOutputFormat, this.cpDisableInput,
+        this.cpIgnoredElements, this.cpSaveClickOutside, this.cpCloseClickOutside,
+        this.cpUseRootViewContainer, this.cpPosition, this.cpPositionOffset,
+        this.cpPositionRelativeToArrow, this.cpPresetLabel, this.cpPresetColors,
+        this.cpPresetColorsClass, this.cpMaxPresetColorsLength, this.cpPresetEmptyMessage,
+        this.cpPresetEmptyMessageClass, this.cpOKButton, this.cpOKButtonClass,
+        this.cpOKButtonText, this.cpCancelButton, this.cpCancelButtonClass,
+        this.cpCancelButtonText, this.cpAddColorButton, this.cpAddColorButtonClass,
+        this.cpAddColorButtonText, this.cpRemoveColorButtonClass, this.cpEyeDropper, this.elRef,
+        this.cpExtraTemplate, this.cpPresetTooltips, this.cpActiveColorIndex);
+    }
+
     if (changes.cpToggle && !this.cpDisabled) {
       if (changes.cpToggle.currentValue) {
         this.openDialog();

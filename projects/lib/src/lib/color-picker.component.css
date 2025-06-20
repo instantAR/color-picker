@@ -177,7 +177,7 @@
   display: inline-block;
   width: 24px;
   height: 24px;
-  margin: 4px 5px 6px;
+  /* margin: 4px 5px 6px; */
   border: #a9a9a9 solid 1px;
   border-radius: 15%;
   cursor: pointer;
@@ -222,6 +222,16 @@
   transition: opacity 0.3s;
   white-space: nowrap;
   max-width: 200px;
+}
+
+.color-transparent {
+    background-image: url('../assets/color-transparent.png');
+     border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    margin: 4px 5px 6px;
+    display: inline-block;
+    background-size: 230px;
 }
 
 .cp_tooltip .tooltiptext::after {

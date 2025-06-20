@@ -122,9 +122,11 @@
     />
     <div *ngIf="cpPresetColors?.length" class="{{cpPresetColorsClass}}">
       <ng-container *ngFor="let color of filteredPresetColors;let i=index; let last=last">
+        <div class="color-transparent">
         <div class="preset-color cp_tooltip" [style.backgroundColor]="color.color" [ngClass]="{'preset-color-selected' : color.index === activeIndex}" (click)="setColorFromString(color.color,true,true,color.index)">
           <span *ngIf="cpPresetTooltips?.length" class="tooltiptext">{{cpPresetTooltips[filteredColorIndexes[i]]}}</span>
           <span *ngIf="cpAddColorButton" class="{{cpRemoveColorButtonClass}}" (click)="onRemovePresetColor($event, color.color)"></span>
+        </div>
         </div>
         <div *ngIf="last" class="preset-color cp_tooltip" (click)="onAddPresetVariableColor()">
           <span class="tooltiptext">Add Variable</span> 

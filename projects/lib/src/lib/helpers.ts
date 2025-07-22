@@ -27,11 +27,17 @@ export function calculateAutoPositioning(elBounds: BoundingRectangle, triggerElB
   const right = left + triggerElBounds.width;
 
   const collisionTop = top - height < 0;
-  const collisionBottom = (window.innerHeight-top) - height < 0;
+  const collisionBottom = (window.innerHeight - bottom) < height;
   const collisionLeft = left - width < 0;
   const collisionRight = right + width > (window.innerWidth || document.documentElement.clientWidth);
   const collisionAll = collisionTop && collisionBottom && collisionLeft && collisionRight;
 
+  console.log("elBounds", elBounds);
+  console.log("triggerElBounds", triggerElBounds);
+  console.log("collisionTop collisionBottom", collisionTop, collisionBottom);
+  console.log("window.innerHeight", window.innerHeight);
+  console.log('spaceBelow:', window.innerHeight - bottom, 'neededHeight:', height);
+  
   // Generate X & Y position values
   if (collisionBottom) {
     usePositionY = 'top';
